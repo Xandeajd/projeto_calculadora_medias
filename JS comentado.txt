@@ -1,0 +1,56 @@
+const form = document.getElementById('form-atividade');
+/*Declara uma constante form e a associa ao elemento do HTML com o ID 'form-atividade'. Provavelmente é um formulário usado para inserir atividades e notas.*/
+
+const imgAprovado = '<img src="./images/aprovado.png" alt="Emoji celebrando" />';
+/*Cria uma constante imgAprovado que contém uma string representando um código HTML de uma imagem com um emoji de celebração.*/
+
+const imgReprovado = '<img src="./images/reprovado.png" alt="Emoji decepcionado" />';
+/*Cria uma constante imgReprovado que contém uma string representando um código HTML de uma imagem com um emoji de decepção.*/
+
+let linhas = '';
+/*Inicializa uma variável chamada linhas como uma string vazia. Esta variável será usada para armazenar as linhas da tabela HTML.*/
+
+form.addEventListener('submit', function (e) {
+        /*Adiciona um ouvinte de eventos ao formulário (form), que será acionado quando o formulário for enviado (evento 'submit'). A função definida será executada quando o evento de envio do formulário for acionado.*/
+        e.preventDefault();
+        /*Previne o comportamento padrão do formulário de ser enviado, o que evitará que a página seja recarregada após o envio.*/
+        adicionaLinha();
+});
+
+function adicionaLinha() {
+        const inputNomeAtividade = document.getElementById('nome-atividade');
+        /*Obtém a referência ao elemento de input do HTML com o ID 'nome-atividade', que provavelmente é onde o usuário insere o nome da atividade.*/
+
+        const inputNotaAtividade = document.getElementById('nota-atividade');
+        /*Obtém a referência ao elemento de input do HTML com o ID 'nota-atividade', onde o usuário insere a nota da atividade.*/
+
+        let linha = '<tr>';
+        /*Inicializa uma variável linha com uma string representando o início de uma linha de uma tabela HTML.*/
+
+        linha += `<td>${inputNomeAtividade.value}</td>`;
+        /*Adiciona à variável linha um trecho de código HTML que representa uma célula de tabela contendo o valor inserido no campo de entrada de nome de atividade.*/
+
+        linha += `<td>${inputNotaAtividade.value}</td>`;
+        /*Adiciona à variável linha um trecho de código HTML que representa uma célula de tabela contendo o valor inserido no campo de entrada de nota da atividade.*/
+        
+        linha += `<td>${inputNotaAtividade.value >= 7 ? imgAprovado : imgReprovado}</td>`;
+        /*Adiciona à variável linha um trecho de código HTML que representa uma célula de tabela contendo a imagem (emoji de celebração ou decepção) dependendo se a nota é maior ou igual a 7.*/
+
+        linha += '</tr>';
+        /*Finaliza a construção da linha da tabela HTML.*/
+
+        linhas += linha;
+        /*Adiciona a linha criada à variável linhas, acumulando as linhas da tabela.*/
+
+        const corpoTabela = document.querySelector('tbody');
+        /*Obtém uma referência ao corpo da tabela HTML (assumindo que a tabela tem um elemento tbody).*/
+
+        corpoTabela.innerHTML = linhas;
+        /*Define o conteúdo HTML do corpo da tabela para o valor acumulado em linhas, atualizando assim a tabela com as novas linhas inseridas.*/
+
+        inputNomeAtividade.value = '';
+        inputNotaAtividade.value = '';
+        /*Limpa os campos de entrada do nome e da nota da atividade, preparando-os para receber novos valores após o envio do formulário.*/
+}
+
+
